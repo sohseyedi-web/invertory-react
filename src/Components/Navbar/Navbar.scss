@@ -1,0 +1,28 @@
+.navs {
+  padding: 1.5rem 0;
+  border-bottom: 2px solid #2cb67d;
+
+  &-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__logo {
+      color: #7f5af0;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+    &__number {
+      width: 28px;
+      height: 28px;
+      border-radius: 100%;
+      background-color: #2cb67d;
+      color: #fffffe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #fffffe;
+      margin-right: 1rem;
+    }
+  }
+}
