@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
+import { useProducts, useProductsDispatch } from "../../Context/ProductProvider";
 import "./CategoryForm.scss";
 
 const CategoryForm = () => {
   const [isShow, setIsShow] = useState(false);
+  const products = useProducts();
+  const dispatch = useProductsDispatch();
 
   const cancelHandler = (e) => {
     e.preventDefault();

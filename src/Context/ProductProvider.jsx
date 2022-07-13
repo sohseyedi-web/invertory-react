@@ -1,38 +1,46 @@
-import {useContext , createContext , useReducer} from 'react'
+import { useContext, createContext, useReducer } from "react";
 
 export const productAction = createContext();
 export const productActionDispatch = createContext();
 
 const initialState = {
-    items : []
-}
+  products: [],
+  category: [],
+};
 
 const productsHandler = (state = initialState, action) => {
-    switch (action.type) {
-        case "categoryItem":{
-            const category = [...state.items];
-        }
-            
-    
-        default:
-            return state;
+  switch (action.type) {
+    case "addCategoryItem": {
+      const newCategory = [
+        ...state.category,
+        {
+          id: new Date().getTime(),
+          item: action.payload,
+          createdAt: new Date().toISOString(),
+        },
+      ];
+      const categoryItem = [...state.category , newCategory];
+      return {...state , category : categoryItem}
     }
-}
 
-const ProductProvider = ({children}) => {
+    default:
+      return state;
+  }
+};
 
-    const [products , dispatch] = useReducer(productsHandler , initialState)
+const ProductProvider = ({ children }) => {
+  const [products, dispatch] = useReducer(productsHandler, initialState);
 
   return (
     <productAction.Provider value={products}>
-        <productActionDispatch.Provider value={dispatch}>
-            {children}
-        </productActionDispatch.Provider>
+      <productActionDispatch.Provider value={dispatch}>
+        {children}
+      </productActionDispatch.Provider>
     </productAction.Provider>
-  )
-}
+  );
+};
 
-export default ProductProvider
+export default ProductProvider;
 
 export const useProducts = () => useContext(productAction);
 export const useProductsDispatch = () => useContext(productActionDispatch);
