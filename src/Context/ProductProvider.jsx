@@ -19,8 +19,27 @@ const productsHandler = (state = initialState, action) => {
           createdAt: new Date().toISOString(),
         },
       ];
-      const categoryItem = [...state.category , newCategory];
-      return {...state , category : categoryItem}
+      const categoryItem = [...state.category, newCategory];
+      return { ...state, category: categoryItem };
+    }
+    case "addProductItem": {
+      const newProducts = [
+        ...state.category,
+        {
+          id: Math.ceil(Math.random() * 1000),
+          product: action.payload,
+          createdAt: new Date().toISOString(),
+        },
+      ];
+      const productItem = [...state.products, newProducts];
+      console.log(productItem);
+      return { ...state, products: productItem };
+    }
+    case "removeProductItem": {
+      const filterProductItem = state.products.filter(
+        (p) => p.id !== action.id
+      );
+      return { ...state, products: filterProductItem };
     }
 
     default:
