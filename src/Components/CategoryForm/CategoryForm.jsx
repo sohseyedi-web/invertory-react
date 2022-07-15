@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
-import {
-  useProducts,
-  useProductsDispatch,
-} from "../../Context/ProductProvider";
+import { useDispatch } from "react-redux";
+import { addNewCategoryItem } from "../../Store/reducers/categoryReducer";
 import "./CategoryForm.scss";
 
 const CategoryForm = () => {
@@ -12,7 +10,8 @@ const CategoryForm = () => {
     title: "",
     description: "",
   });
-  const dispatch = useProductsDispatch();
+
+  const dispatch = useDispatch();
 
   const cancelHandler = (e) => {
     e.preventDefault();
@@ -27,7 +26,7 @@ const CategoryForm = () => {
 
   const addNewCategoryHandler = (e) => {
     e.preventDefault();
-    dispatch({ type: "addCategoryItem", payload: categoryFormData });
+    dispatch(addNewCategoryItem(categoryFormData));
     setCategoryFormData({ title: "", description: "" });
   };
 

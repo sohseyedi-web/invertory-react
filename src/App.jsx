@@ -4,7 +4,6 @@ import ProductList from "./Components/ProductList/ProductList";
 import CategoryForm from "./Components/CategoryForm/CategoryForm";
 
 function App() {
-
   return (
     <>
       <Navbar />

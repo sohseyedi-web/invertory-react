@@ -1,17 +1,17 @@
 import { useState } from "react";
-import {
-  useProducts,
-  useProductsDispatch,
-} from "../../Context/ProductProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { addNewProductsItems } from "../../Store/reducers/productsReducer";
+
 import "./ProductForm.scss";
 
 const ProductForm = () => {
-  const { products, category } = useProducts();
-  const dispatch = useProductsDispatch();
+  const { categoryItem } = useSelector((state) => state.category);
+  const dispatch = useDispatch();
+
   const [productsFormData, setProductsFormData] = useState({
     title: "",
     quantity: 0,
-    category: "",
+    categoryItem: "",
   });
 
   const changeHandler = (e) => {
@@ -22,14 +22,14 @@ const ProductForm = () => {
 
   const addNewProductHandler = (e) => {
     e.preventDefault();
-    dispatch({ type: "addProductItem", payload: productsFormData });
-    setProductsFormData({ title: "", quantity: "", category: "" });
+    dispatch(addNewProductsItems(productsFormData));
+    setProductsFormData({ title: "", quantity: "", categoryItem: "" });
   };
 
   return (
     <section className="products">
       <div className="container products-container">
-        {category.length === 0 ? null : (
+        {!categoryItem.length ? null : (
           <div className="products-container__box">
             <h2 className="products-container__box-title">محصول جدید:</h2>
             <form className="products-container__box-form">
@@ -54,17 +54,17 @@ const ProductForm = () => {
                 />
               </div>
               <div className="products-container__box-form__inputs">
-                <label htmlFor="category">دسته بندی</label>
+                <label htmlFor="categoryItem">دسته بندی</label>
                 <select
-                  name="category"
-                  id="category"
-                  value={productsFormData.category}
+                  name="categoryItem"
+                  id="categoryItem"
+                  value={productsFormData.categoryItem}
                   onChange={changeHandler}
                 >
                   <option>انتخاب دسته بندی</option>
-                  {category.map((item) => (
-                    <option key={item.id} value={item.title}>
-                      {item.title}
+                  {categoryItem.map(({ id, items }) => (
+                    <option key={id} value={items.title}>
+                      {items.title}
                     </option>
                   ))}
                 </select>

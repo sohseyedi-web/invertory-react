@@ -1,37 +1,29 @@
-import {
-  useProducts,
-  useProductsDispatch,
-} from "../../Context/ProductProvider";
+import { useSelector } from "react-redux";
+
 import "./ProductList.scss";
 
 const ProductList = () => {
-  const { products } = useProducts();
-  const dispatch = useProductsDispatch();
+  const { productsItem } = useSelector((state) => state.products);
 
   return (
     <section className="lists">
       <div className="container">
-        {products.map((product) => (
+        {productsItem.map((product) => (
           <div className="lists-container" key={product.id}>
-            <span className="lists-container__title">{product.title}</span>
+            <span className="lists-container__title">
+              {product.items.title}
+            </span>
             <div className="lists-container__action">
               <span className="lists-container__action-date">
                 {new Date(product.createdAt).toLocaleDateString("fa-IR")}
               </span>
               <span className="lists-container__action-label">
-                {product.category}
+                {product.items.categoryItem}
               </span>
               <span className="lists-container__action-quantity">
-                {product.quntity}
+                {product.items.quantity}
               </span>
-              <span
-                className="lists-container__action-trash"
-                onClick={() =>
-                  dispatch({ type: "removeProductItem", id: product.id })
-                }
-              >
-                حذف
-              </span>
+              <span className="lists-container__action-trash">حذف</span>
             </div>
           </div>
         ))}
