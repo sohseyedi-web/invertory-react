@@ -62,9 +62,9 @@ const ProductForm = () => {
                   onChange={changeHandler}
                 >
                   <option>انتخاب دسته بندی</option>
-                  {categoryItem.map(({ id, items }) => (
-                    <option key={id} value={items.title}>
-                      {items.title}
+                  {categoryItem.map((item) => (
+                    <option key={item.id} value={item.items.title}>
+                      {item.items.title}
                     </option>
                   ))}
                 </select>

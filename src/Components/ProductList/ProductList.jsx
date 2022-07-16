@@ -1,9 +1,12 @@
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { removeProductsItems } from "../../Store/reducers/productsReducer";
 import "./ProductList.scss";
 
 const ProductList = () => {
   const { productsItem } = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+
+  const handleRemoveItem = () => dispatch(removeProductsItems())
 
   return (
     <section className="lists">
@@ -23,7 +26,12 @@ const ProductList = () => {
               <span className="lists-container__action-quantity">
                 {product.items.quantity}
               </span>
-              <span className="lists-container__action-trash">حذف</span>
+              <span
+                className="lists-container__action-trash"
+                onClick={() => dispatch(removeProductsItems(product.id))}
+              >
+                حذف
+              </span>
             </div>
           </div>
         ))}
